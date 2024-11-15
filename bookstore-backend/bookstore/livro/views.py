@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from ninja import File, NinjaAPI, UploadedFile
-from api.models import Livro
-from api.schemas import LivroSchema, LivroCreateSchema
+from livro.models import Livro
+from livro.schemas import LivroSchema, LivroCreateSchema
 from django.core.files.storage import default_storage
 
 api = NinjaAPI()
