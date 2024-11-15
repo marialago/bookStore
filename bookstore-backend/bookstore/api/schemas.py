@@ -14,6 +14,5 @@ class LivroSchema(Schema):
 class LivroCreateSchema(Schema):
     titulo: str
     descricao:str
-    imagem: UploadedFile | None 
     autor:str
     preco: float
