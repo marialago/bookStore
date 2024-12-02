@@ -1,0 +1,10 @@
+
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    unnecessary_const: true
+    prefer_final_fields: true
+    prefer_final_locals: true
+    prefer_const_constructors: true
+    avoid_dynamic_calls: true
