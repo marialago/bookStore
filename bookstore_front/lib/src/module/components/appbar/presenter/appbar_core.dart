@@ -2,8 +2,8 @@ import 'package:bookstore_front/src/utils/img_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AppbarCore extends StatelessWidget {
-  const AppbarCore({super.key});
+class AppbarWidget extends StatelessWidget {
+  const AppbarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

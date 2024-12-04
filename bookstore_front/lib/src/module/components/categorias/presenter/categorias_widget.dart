@@ -1,4 +1,4 @@
-import 'package:bookstore_front/src/components/categorias/presenter/categoria_unit.dart';
+import 'package:bookstore_front/src/module/components/categorias/presenter/categoria_unit.dart';
 import 'package:bookstore_front/src/utils/img_utils.dart';
 import 'package:bookstore_front/src/utils/text_utils.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ class CategoriasWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 60),
+      padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 50),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
