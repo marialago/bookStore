@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'ninja',
     'api.livro',
     'api.usuario',
+    'api.pedido'
 ]
 
 MIDDLEWARE = [
