@@ -1,4 +1,4 @@
-from ninja import Schema, UploadedFile
+from ninja import Schema
 
 class LivroSchema(Schema):
     id: int

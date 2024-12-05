@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path
-from livro.views import api
+from api.router import api
 from django.conf.urls.static import static
 
 urlpatterns = [
