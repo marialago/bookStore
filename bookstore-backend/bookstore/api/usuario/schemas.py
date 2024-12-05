@@ -4,8 +4,10 @@ class ClienteSchema(Schema):
     id: int
     nome: str
     email: str
-    senha: str
-    
+
+    class config:
+        orm_mode = True
+
     
 class ClienteCreateSchema(Schema):
     nome: str
@@ -16,7 +18,9 @@ class AdministradorSchema(Schema):
     id: int
     nome: str
     email: str
-    senha: str
+
+    class config:
+        orm_mode = True
     
     
 class AdministradorCreateSchema(Schema):

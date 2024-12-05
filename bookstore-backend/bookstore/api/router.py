@@ -1,7 +1,7 @@
 from ninja import NinjaAPI
-from api.livro.views import livro_router
-from api.usuario.views import cliente_router, administrador_router
-from api.pedido.views import pedido_router
+from api.livro.router import livro_router
+from api.usuario.router import cliente_router, administrador_router
+from api.pedido.router import pedido_router
 
 api = NinjaAPI()
 
