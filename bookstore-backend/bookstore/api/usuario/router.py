@@ -1,9 +1,10 @@
 from django.shortcuts import get_object_or_404
-from ninja import Router
+from ninja import File, Router, UploadedFile
 from api.usuario.models import Cliente, Administrador
-from api.usuario.schemas import AdministradorCreateSchema, AdministradorSchema, ClienteSchema, ClienteCreateSchema
+from api.usuario.schemas import AdministradorCreateSchema, AdministradorSchema, ClienteSchema, ClienteCreateSchema, AdministradorLoginSchema
 from api.pedido.schemas import PedidoSchema
-from api.usuario.views import ClienteView
+from api.livro.schemas import LivroSchema, LivroCreateSchema
+from api.usuario.views import ClienteView, AdministradorView
 
 cliente_router = Router()
 clienteView = ClienteView()
@@ -48,6 +49,7 @@ def buscar_pedidos_do_cliente(request, cliente_id: int):
     return cliente_pedidos    
 
 administrador_router = Router()
+administradorView = AdministradorView()
 
 # Listar todos os Administradores
 @administrador_router.get("/administradores", response=list[AdministradorSchema])
@@ -82,3 +84,21 @@ def excluir_administrador(request, administrador_id: int):
     administrador = get_object_or_404(Administrador, id=administrador_id)
     administrador.delete()
     return {"message": "Administrador excluído com sucesso"}
+
+@administrador_router.post("/administrador/cadastrar_livro/{administrador_id}", response=LivroSchema)
+def cadastrar_livro(request, data: LivroCreateSchema, administrador_id: int, imagem: UploadedFile = File(...)):
+    administrador = {"id": administrador_id, "email": data.email_administrador, "senha": data.senha_administrador}
+    livro = administradorView.cadastrar_livro(data, imagem, administrador)
+    return livro
+
+# Atualizar um livro existente
+@administrador_router.put("/administrador/atualizar_livro/{livro_id}/{administrador_id}", response=LivroSchema)
+def atualizar_livro(request, livro_id: int, data: LivroCreateSchema, administrador_id:int ,imagem: UploadedFile = File(None)):
+    administrador = {"id": administrador_id, "email": data.email_administrador, "senha": data.senha_administrador}
+    livro = administradorView.atualizar_livro(livro_id, data, imagem, administrador)
+    return livro
+
+# Excluir um livro
+@administrador_router.delete("/administrador/deletar_livro/{livro_id}/{administrador_id}/")
+def excluir_livro(request, livro_id: int, administrador_id, data: AdministradorLoginSchema):
+    return administradorView.excluir_livro(livro_id, administrador_id, data.dict())

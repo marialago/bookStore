@@ -16,3 +16,5 @@ class LivroCreateSchema(Schema):
     descricao:str
     autor:str
     preco: float
+    email_administrador: str
+    senha_administrador: str

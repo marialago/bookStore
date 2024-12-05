@@ -27,3 +27,7 @@ class AdministradorCreateSchema(Schema):
     nome: str
     email:str
     senha:str
+
+class AdministradorLoginSchema(Schema):
+    email:str
+    senha:str
