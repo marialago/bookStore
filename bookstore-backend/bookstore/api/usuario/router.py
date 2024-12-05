@@ -2,9 +2,11 @@ from django.shortcuts import get_object_or_404
 from ninja import Router
 from api.usuario.models import Cliente, Administrador
 from api.usuario.schemas import AdministradorCreateSchema, AdministradorSchema, ClienteSchema, ClienteCreateSchema
-from django.core.files.storage import default_storage
+from api.pedido.schemas import PedidoSchema
+from api.usuario.views import ClienteView
 
 cliente_router = Router()
+clienteView = ClienteView()
 
 # Listar todos os Clientes
 @cliente_router.get("/clientes", response=list[ClienteSchema])
@@ -39,6 +41,11 @@ def excluir_cliente(request, cliente_id: int):
     cliente = get_object_or_404(Cliente, id=cliente_id)
     cliente.delete()
     return {"message": "Cliente excluído com sucesso"}
+
+@cliente_router.get("/clientes/buscar_pedidos/{cliente_id}", response=list[PedidoSchema])
+def buscar_pedidos_do_cliente(request, cliente_id: int):
+    cliente_pedidos = clienteView.buscar_pedidos(cliente_id)
+    return cliente_pedidos    
 
 administrador_router = Router()
 
