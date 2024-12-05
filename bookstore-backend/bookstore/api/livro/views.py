@@ -1,24 +1,24 @@
 from django.shortcuts import get_object_or_404
-from ninja import File, NinjaAPI, UploadedFile
-from livro.models import Livro
-from livro.schemas import LivroSchema, LivroCreateSchema
+from ninja import File, Router, UploadedFile
+from api.livro.models import Livro
+from api.livro.schemas import LivroSchema, LivroCreateSchema
 from django.core.files.storage import default_storage
 
-api = NinjaAPI()
+livro_router = Router()
 
 # Listar todos os livros
-@api.get("/livros", response=list[LivroSchema])
+@livro_router.get("/livros", response=list[LivroSchema])
 def listar_livros(request):
     return Livro.objects.all()
 
 # Obter um livro específico
-@api.get("/livros/{livro_id}", response=LivroSchema)
+@livro_router.get("/livros/{livro_id}", response=LivroSchema)
 def obter_livro(request, livro_id: int):
     livro = get_object_or_404(Livro, id=livro_id)
     return livro
 
 # Criar um novo livro
-@api.post("/livros", response=LivroSchema)
+@livro_router.post("/livros", response=LivroSchema)
 def criar_livro(request, data: LivroCreateSchema, imagem: UploadedFile = File(...)):
     livro_data = data.dict()
     if imagem:
@@ -28,7 +28,7 @@ def criar_livro(request, data: LivroCreateSchema, imagem: UploadedFile = File(..
     return livro
 
 # Atualizar um livro existente
-@api.put("/livros/{livro_id}", response=LivroSchema)
+@livro_router.put("/livros/{livro_id}", response=LivroSchema)
 def atualizar_livro(request, livro_id: int, data: LivroCreateSchema, imagem: UploadedFile = File(None)):
     livro = get_object_or_404(Livro, id=livro_id)
     for attr, value in data.dict().items():
@@ -41,7 +41,7 @@ def atualizar_livro(request, livro_id: int, data: LivroCreateSchema, imagem: Upl
 
 
 # Excluir um livro
-@api.delete("/livros/{livro_id}")
+@livro_router.delete("/livros/{livro_id}")
 def excluir_livro(request, livro_id: int):
     livro = get_object_or_404(Livro, id=livro_id)
     livro.delete()
