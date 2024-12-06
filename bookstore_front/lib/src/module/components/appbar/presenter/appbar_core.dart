@@ -1,9 +1,24 @@
-import 'package:bookstore_front/src/utils/img_utils.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:bookstore_front/src/utils/img_utils.dart';
+
 class AppbarWidget extends StatelessWidget {
-  const AppbarWidget({super.key});
+  final Function selectOption;
+  final double highScreen;
+  final Function openAcess;
+  final Widget acesso;
+  // final Widget compra;
+
+  const AppbarWidget({
+    super.key,
+    required this.selectOption,
+    required this.highScreen,
+    required this.openAcess,
+    required this.acesso,
+    //required this.compra,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +51,12 @@ class AppbarWidget extends StatelessWidget {
               appbarMenuText('Sobre Nós'),
             ],
           ),
-          Row(children: [appbarMenuItens(text: "entrar"), appbarMenuItens()]),
+          Row(
+            children: [
+              appbarMenuItens(context, text: "entrar"),
+              appbarMenuItens(context),
+            ],
+          ),
         ],
       ),
     );
@@ -51,15 +71,20 @@ class AppbarWidget extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        // ignore: avoid_dynamic_calls
+        selectOption(text, highScreen);
+      },
     );
   }
 
-  Widget appbarMenuItens({String? text}) {
+  Widget appbarMenuItens(context, {String? text}) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: OutlinedButton(
-        onPressed: () {},
+        onPressed: () {
+          openAcess(context, acesso);
+        },
         style: OutlinedButton.styleFrom(
           side: const BorderSide(color: Color(0xffFFC300), width: 2),
           overlayColor: const Color(0xffFFC300),
