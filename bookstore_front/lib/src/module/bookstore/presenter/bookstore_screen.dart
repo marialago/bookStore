@@ -2,6 +2,7 @@ import 'package:bookstore_front/src/module/bookstore/presenter/bookstore_bloc.da
 import 'package:bookstore_front/src/module/components/appbar/presenter/appbar_core.dart';
 import 'package:bookstore_front/src/module/components/buscar_livro/presenter/buscar_widget.dart';
 import 'package:bookstore_front/src/module/components/categorias/presenter/categorias_widget.dart';
+import 'package:bookstore_front/src/module/components/dialog/acesso/dialog_acesso.dart';
 import 'package:bookstore_front/src/module/components/sobre/presenter/sobre_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -24,11 +25,19 @@ class _BookstoreScreenState extends State<BookstoreScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: const Color(0xffECF0F1),
       body: ListView(
+        controller: controller.scrollController,
         children: [
-          const AppbarWidget(),
+          AppbarWidget(
+            selectOption: controller.scrollToIndex,
+            highScreen: screenHeight,
+            openAcess: controller.openAcess,
+            acesso: const DialogAcessoScreen(),
+          ),
           BuscarLivroWidget(
             controller: controller.controllerText,
             focusNode: controller.focusNode,
