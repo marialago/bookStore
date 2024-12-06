@@ -13,5 +13,7 @@ class Livro(models.Model):
 
     preco = models.DecimalField(max_digits=10, decimal_places=2)
 
+    categoria = models.CharField(max_length=255, null=True, blank=True)
+    
     def __str__(self):
         return self.titulo
