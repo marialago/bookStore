@@ -15,3 +15,9 @@ def listar_livros(request):
 def obter_livro(request, livro_id: int):
     livro = get_object_or_404(Livro, id=livro_id)
     return livro
+
+# Obter um livro específico
+@livro_router.get("/buscar_por_categoria/{categoria}", response=list[LivroSchema])
+def obter_livros_por_categoria(request, categoria: str):
+    livros = Livro.objects.filter(categoria=categoria)
+    return livros

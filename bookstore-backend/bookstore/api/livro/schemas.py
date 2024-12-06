@@ -7,6 +7,7 @@ class LivroSchema(Schema):
     imagem: str | None
     autor: str
     preco: float
+    categoria: str | None
     
     class Config:
         from_attributes = True
@@ -16,5 +17,6 @@ class LivroCreateSchema(Schema):
     descricao:str
     autor:str
     preco: float
+    categoria: str
     email_administrador: str
     senha_administrador: str

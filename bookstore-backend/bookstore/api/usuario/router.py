@@ -86,7 +86,7 @@ def excluir_administrador(request, administrador_id: int):
     return {"message": "Administrador excluído com sucesso"}
 
 @administrador_router.post("/cadastrar_livro/{administrador_id}", response=LivroSchema)
-def cadastrar_livro(request, data: LivroCreateSchema, administrador_id: int, imagem: UploadedFile = File(...)):
+def cadastrar_livro(request, data: LivroCreateSchema, administrador_id: int, imagem: UploadedFile = File(None)):
     administrador = {"id": administrador_id, "email": data.email_administrador, "senha": data.senha_administrador}
     livro = administradorView.cadastrar_livro(data, imagem, administrador)
     return livro
