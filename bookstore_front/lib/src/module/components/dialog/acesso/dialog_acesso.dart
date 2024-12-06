@@ -7,8 +7,8 @@ class DialogAcessoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size tamanhoTela = MediaQuery.of(context).size;
-    final double largura = tamanhoTela.width; // Largura da tela
-    final double altura = tamanhoTela.height; // Altura da tela
+    final double largura = tamanhoTela.width;
+    final double altura = tamanhoTela.height;
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.5),
       body: Center(

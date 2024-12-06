@@ -19,7 +19,7 @@ class BookstoreBloc {
     );
   }
 
-  void openAcess(BuildContext context, Widget widget) {
+  Future<void> openAcess(BuildContext context, Widget widget) async {
     Navigator.of(context).push(
       PageRouteBuilder(
         opaque: false,

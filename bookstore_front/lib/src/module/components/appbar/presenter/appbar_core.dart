@@ -5,11 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:bookstore_front/src/utils/img_utils.dart';
 
 class AppbarWidget extends StatelessWidget {
-  final Function selectOption;
+  final void Function(String, double) selectOption;
   final double highScreen;
-  final Function openAcess;
+  final Future<void> Function(BuildContext, Widget) openAcess;
   final Widget acesso;
-  // final Widget compra;
+  //final Widget compra;
 
   const AppbarWidget({
     super.key,
@@ -17,7 +17,7 @@ class AppbarWidget extends StatelessWidget {
     required this.highScreen,
     required this.openAcess,
     required this.acesso,
-    //required this.compra,
+    //  required this.compra,
   });
 
   @override
@@ -72,7 +72,6 @@ class AppbarWidget extends StatelessWidget {
         ),
       ),
       onPressed: () {
-        // ignore: avoid_dynamic_calls
         selectOption(text, highScreen);
       },
     );
@@ -82,8 +81,12 @@ class AppbarWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: OutlinedButton(
-        onPressed: () {
-          openAcess(context, acesso);
+        onPressed: () async {
+          print('testando');
+          if (text != null) {
+            print('chamou');
+            await openAcess(context, acesso);
+          } else {}
         },
         style: OutlinedButton.styleFrom(
           side: const BorderSide(color: Color(0xffFFC300), width: 2),
