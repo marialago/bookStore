@@ -35,6 +35,7 @@ Os protótipos das telas foram desenvolvidos no **Figma**, trazendo uma interfac
 
 ## 🚀 **Tecnologias Utilizadas**  
 - **Frontend**: HTML, CSS, JavaScript  
-- **Design**: Figma e Canva  
+- **Design**: Figma e Canva
+- **Backend**: Django Ninja
 
 ---
