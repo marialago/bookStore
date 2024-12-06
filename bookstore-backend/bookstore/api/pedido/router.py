@@ -9,14 +9,14 @@ pedido_router = Router()
 pedidoViews = PedidoViews()
 
 # Listar todos os pedidos
-@pedido_router.get("/pedidos", response=list[PedidoSchema])
+@pedido_router.get("/", response=list[PedidoSchema])
 def listar_pedidos(request):
     pedidos = Pedido.objects.all()
     pedidos_schema = [pedido.transform_to_schema for pedido in pedidos]
     return pedidos_schema
 
 # Obter um pedido específico
-@pedido_router.get("/pedidos/{pedido_id}", response=PedidoSchema)
+@pedido_router.get("/{pedido_id}", response=PedidoSchema)
 def obter_pedido(request, pedido_id: int):
     pedido = get_object_or_404(Pedido, id=pedido_id)
     return pedido.transform_to_schema()
@@ -28,7 +28,7 @@ def realizar_pedido(request, data: PedidoSchemaCreate):
     return pedido.transform_to_schema()
 
 # Atualizar um pedido existente
-@pedido_router.put("/pedidos/{pedido_id}", response=PedidoSchema)
+@pedido_router.put("/{pedido_id}", response=PedidoSchema)
 def atualizar_pedido(request, pedido_id: int, data: PedidoUpdateSchema):
     pedido = get_object_or_404(Pedido, id=pedido_id)
     for attr, value in data.dict().items():
@@ -38,7 +38,7 @@ def atualizar_pedido(request, pedido_id: int, data: PedidoUpdateSchema):
 
 
 # Excluir um pedido
-@pedido_router.delete("/pedidos/{pedido_id}")
+@pedido_router.delete("/{pedido_id}")
 def excluir_pedido(request, pedido_id: int):
     pedido = get_object_or_404(Pedido, id=pedido_id)
     pedido.delete()

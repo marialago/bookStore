@@ -10,7 +10,7 @@ class ItemPedidoSchema(Schema):
     livro: LivroSchema
 
     class Config:
-            orm_mode = True
+            from_attributes = True
 class PedidoSchema(Schema):
     id: int
     data_pedido: datetime

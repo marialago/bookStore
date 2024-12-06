@@ -9,7 +9,7 @@ class LivroSchema(Schema):
     preco: float
     
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class LivroCreateSchema(Schema):
     titulo: str

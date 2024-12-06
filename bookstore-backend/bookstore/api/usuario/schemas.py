@@ -6,7 +6,7 @@ class ClienteSchema(Schema):
     email: str
 
     class config:
-        orm_mode = True
+        from_attributes = True
 
     
 class ClienteCreateSchema(Schema):
@@ -20,7 +20,7 @@ class AdministradorSchema(Schema):
     email: str
 
     class config:
-        orm_mode = True
+        from_attributes = True
     
     
 class AdministradorCreateSchema(Schema):

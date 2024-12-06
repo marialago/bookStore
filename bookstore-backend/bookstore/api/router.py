@@ -6,7 +6,7 @@ from api.pedido.router import pedido_router
 api = NinjaAPI()
 
 # Registrar os routers das views
-api.add_router("/livro/", livro_router, tags=["livros"])
-api.add_router("/cliente/", cliente_router, tags=["Clientes"])
-api.add_router("/administrador/", administrador_router, tags=["Administradores"])
-api.add_router("/pedido/", pedido_router, tags=["Pedidos"])
+api.add_router("/livros/", livro_router, tags=["livros"])
+api.add_router("/clientes/", cliente_router, tags=["Clientes"])
+api.add_router("/administradores/", administrador_router, tags=["Administradores"])
+api.add_router("/pedidos/", pedido_router, tags=["Pedidos"])
