@@ -39,3 +39,5 @@ Os protótipos das telas foram desenvolvidos no **Figma**, trazendo uma interfac
 - **Backend**: Django Ninja
 
 ---
+
+![Apresentação Canva](https://www.canva.com/design/DAGYjAi01d8/mrE-9Q7o8_MuDk0xUQ4gfQ/edit)  
