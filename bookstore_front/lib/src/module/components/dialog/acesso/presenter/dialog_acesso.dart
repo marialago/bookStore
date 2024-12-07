@@ -13,6 +13,7 @@ class DialogAcessoScreen extends StatelessWidget {
   final TextEditingController nomeAcessoController;
   final TextEditingController senhaAcessoController;
   final bool carregando;
+  final Function logado;
   const DialogAcessoScreen(
       {Key? key,
       required this.formKeyCadastro,
@@ -25,6 +26,7 @@ class DialogAcessoScreen extends StatelessWidget {
       required this.confirmarSenhaController,
       required this.nomeAcessoController,
       required this.senhaAcessoController,
+      required this.logado,
       this.carregando = false})
       : super(key: key);
 
@@ -35,6 +37,7 @@ class DialogAcessoScreen extends StatelessWidget {
     final double altura = tamanhoTela.height;
     return GestureDetector(
       onTap: () {
+        logado();
         Navigator.of(context).pop();
       },
       child: Scaffold(
@@ -59,7 +62,7 @@ class DialogAcessoScreen extends StatelessWidget {
                             nomeAcessoController,
                             senhaAcessoController,
                             login,
-                            carregando),
+                            logado),
                       ),
                     ),
                     Container(
@@ -98,7 +101,7 @@ Widget _buildAcesso(
     TextEditingController nomeAcessoController,
     TextEditingController senhaAcessoController,
     Function login,
-    bool carregando) {
+    Function logado) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisSize: MainAxisSize.min,
@@ -113,7 +116,7 @@ Widget _buildAcesso(
         ),
       ),
       textFild(senhaAcessoController, "Senha", isSenha: true),
-      _buttonMenu(context, "Acessar Conta", login, carregando),
+      _buttonMenu(context, "Acessar Conta", login, logado: logado),
     ],
   );
 }
@@ -144,7 +147,7 @@ Widget _buildCriarConta(
           ],
         ),
       ),
-      _buttonMenu(context, "Confirmar", submit, carregando),
+      _buttonMenu(context, "Confirmar", submit),
     ],
   );
 }
@@ -164,7 +167,7 @@ Widget _tittle(String text) {
 }
 
 Widget textFild(
-  TextEditingController controller, //TODO: preencher as lógicas
+  TextEditingController controller,
   String text, {
   FocusNode? focusNode,
   bool isSenha = false,
@@ -229,26 +232,23 @@ Widget _buttonText(String text) {
   );
 }
 
-Widget _buttonMenu(context, String text, Function action, bool carregando) {
+Widget _buttonMenu(context, String text, Function action, {Function? logado}) {
   return Center(
     child: Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: carregando == false
-          ? OutlinedButton(
-              onPressed: () async {
-                print('chegou1');
-                await action();
-                // openAcess(context, acesso);
-              },
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Color(0xffFFC300), width: 2),
-                //overlayColor: const Color(0xffFFC300),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-              ),
-              child: _buttonText(text),
-            )
-          : const CircularProgressIndicator(),
-    ),
+        padding: const EdgeInsets.all(15.0),
+        child: OutlinedButton(
+          onPressed: () async {
+            logado == null
+                ? await action(context)
+                : await action(context, logado);
+          },
+          style: OutlinedButton.styleFrom(
+            side: const BorderSide(color: Color(0xffFFC300), width: 2),
+            //overlayColor: const Color(0xffFFC300),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          ),
+          child: _buttonText(text),
+        )),
   );
 }

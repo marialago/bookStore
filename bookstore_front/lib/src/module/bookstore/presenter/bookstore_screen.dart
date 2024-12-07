@@ -1,5 +1,7 @@
 import 'package:bookstore_front/src/module/bookstore/presenter/bookstore_bloc.dart';
 import 'package:bookstore_front/src/module/components/appbar/presenter/appbar_core.dart';
+import 'package:bookstore_front/src/module/components/buscar_livro/domain/livro.dart';
+import 'package:bookstore_front/src/module/components/buscar_livro/presenter/buscar_bloc.dart';
 import 'package:bookstore_front/src/module/components/buscar_livro/presenter/buscar_widget.dart';
 import 'package:bookstore_front/src/module/components/categorias/presenter/categorias_widget.dart';
 import 'package:bookstore_front/src/module/components/dialog/acesso/presenter/dialog_acesso.dart';
@@ -18,7 +20,7 @@ class BookstoreScreen extends StatefulWidget {
 class _BookstoreScreenState extends State<BookstoreScreen> {
   final controller = Modular.get<BookstoreBloc>();
   final DialogAcessoBloc acessoBloc = Modular.get<DialogAcessoBloc>();
-
+  final BuscaBloc buscaBloc = Modular.get<BuscaBloc>();
   @override
   void dispose() {
     controller.dispose();
@@ -34,27 +36,47 @@ class _BookstoreScreenState extends State<BookstoreScreen> {
       body: ListView(
         controller: controller.scrollController,
         children: [
-          AppbarWidget(
-            selectOption: controller.scrollToIndex,
-            highScreen: screenHeight,
-            openAcess: controller.openAcess,
-            acesso: DialogAcessoScreen(
-              confirmarSenhaController: acessoBloc.confirmarSenhaController,
-              emailController: acessoBloc.emailController,
-              submit: acessoBloc.submitFormCadastro,
-              senhaAcessoController: acessoBloc.senhaLoginController,
-              formKeyCadastro: acessoBloc.formKeyCadastro,
-              login: acessoBloc.submitFormLogin,
-              nomeAcessoController: acessoBloc.nomeLoginController,
-              formKeyLogin: acessoBloc.formKeyLogin,
-              nomeController: acessoBloc.nomeController,
-              senhaController: acessoBloc.senhaController,
-            ),
-          ),
-          BuscarLivroWidget(
-            controller: controller.controllerText,
-            focusNode: controller.focusNode,
-          ),
+          StreamBuilder<bool>(
+              stream: controller.logadoOut,
+              builder: (context, snapshot) {
+                return AppbarWidget(
+                  selectOption: controller.scrollToIndex,
+                  highScreen: screenHeight,
+                  openAcess: controller.openAcess,
+                  client: controller.clientModular,
+                  acesso: DialogAcessoScreen(
+                    logado: controller.logadoCheck,
+                    confirmarSenhaController:
+                        acessoBloc.confirmarSenhaController,
+                    emailController: acessoBloc.emailController,
+                    submit: acessoBloc.submitFormCadastro,
+                    senhaAcessoController: acessoBloc.senhaLoginController,
+                    formKeyCadastro: acessoBloc.formKeyCadastro,
+                    login: acessoBloc.submitFormLogin,
+                    nomeAcessoController: acessoBloc.nomeLoginController,
+                    formKeyLogin: acessoBloc.formKeyLogin,
+                    nomeController: acessoBloc.nomeController,
+                    senhaController: acessoBloc.senhaController,
+                  ),
+                );
+              }),
+          StreamBuilder<bool>(
+              stream: buscaBloc.loadingOut,
+              builder: (context, snapshotLoading) {
+                if (snapshotLoading.data == true) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  return StreamBuilder<List<Livro>>(
+                      stream: buscaBloc.livroOutput,
+                      builder: (context, snapshot) {
+                        return BuscarLivroWidget(
+                          livros: snapshot.data,
+                          controller: buscaBloc.textController,
+                          getLivro: buscaBloc.getLivros,
+                        );
+                      });
+                }
+              }),
           const CategoriasWidget(),
           const SobreWidget(),
         ],
