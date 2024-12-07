@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:bookstore_front/src/module/components/dialog/acesso/domain/cliente.dart';
 import 'package:bookstore_front/src/utils/img_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,6 +9,7 @@ class AppbarWidget extends StatelessWidget {
   final double highScreen;
   final void Function(BuildContext, Widget) openAcess;
   final Widget acesso;
+  final Client client;
   //final Widget compra;
 
   const AppbarWidget({
@@ -16,6 +18,7 @@ class AppbarWidget extends StatelessWidget {
     required this.highScreen,
     required this.openAcess,
     required this.acesso,
+    required this.client,
   }) : super(key: key);
 
   @override
@@ -50,7 +53,15 @@ class AppbarWidget extends StatelessWidget {
           ),
           Row(
             children: [
-              appbarMenuItens(context, text: "entrar"),
+              client.nome == null
+                  ? appbarMenuItens(context, text: "entrar")
+                  : Text(
+                      client.nome!,
+                      style: const TextStyle(
+                          color: Color(0xffF1C40F),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18),
+                    ),
               appbarMenuItens(context),
             ],
           ),

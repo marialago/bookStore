@@ -1,12 +1,12 @@
 class Client {
-  final int id;
-  final String nome;
-  final String email;
+  int? id;
+  String? nome;
+  String? email;
 
   Client({
-    required this.id,
-    required this.nome,
-    required this.email,
+    this.id,
+    this.nome,
+    this.email,
   });
 
   Map<String, dynamic> toMap() {

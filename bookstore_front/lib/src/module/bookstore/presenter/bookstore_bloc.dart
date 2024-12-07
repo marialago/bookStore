@@ -3,15 +3,22 @@ import 'package:bookstore_front/src/module/components/dialog/acesso/presenter/di
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:rxdart/rxdart.dart';
 
 class BookstoreBloc {
   final DialogAcessoBloc acessoBloc = Modular.get<DialogAcessoBloc>();
   final TextEditingController controllerText = TextEditingController();
   final FocusNode focusNode = FocusNode();
   final ScrollController scrollController = ScrollController();
+  Client clientModular = Modular.get<Client>();
+
+  BehaviorSubject<bool> logado = BehaviorSubject<bool>.seeded(false);
+  Stream<bool>? get logadoOut => logado.stream;
+
   final _dio = Dio();
   final _header = {'Content-Type': 'application/json'};
-  final String _urlBase ="https://web1bookstore-2341d7ab5f45.herokuapp.com/api/";
+  final String _urlBase =
+      "https://web1bookstore-2341d7ab5f45.herokuapp.com/api/";
   void scrollToIndex(String optionSelected, double highScreen) {
     double position = 0;
     if (optionSelected == "Categorias") {
@@ -24,6 +31,10 @@ class BookstoreBloc {
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );
+  }
+
+  void logadoCheck() async {
+    if (clientModular.email != null) logado.sink.add(true);
   }
 
   void openAcess(BuildContext context, Widget widget) async {
