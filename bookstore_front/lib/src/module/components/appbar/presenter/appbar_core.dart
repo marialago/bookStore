@@ -1,24 +1,22 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:bookstore_front/src/utils/img_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:bookstore_front/src/utils/img_utils.dart';
 
 class AppbarWidget extends StatelessWidget {
   final void Function(String, double) selectOption;
   final double highScreen;
-  final Future<void> Function(BuildContext, Widget) openAcess;
+  final void Function(BuildContext, Widget) openAcess;
   final Widget acesso;
   //final Widget compra;
 
   const AppbarWidget({
-    super.key,
+    Key? key,
     required this.selectOption,
     required this.highScreen,
     required this.openAcess,
     required this.acesso,
-    //  required this.compra,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +44,6 @@ class AppbarWidget extends StatelessWidget {
           ),
           Row(
             children: [
-              appbarMenuText('Início'),
               appbarMenuText('Categorias'),
               appbarMenuText('Sobre Nós'),
             ],
@@ -63,17 +60,20 @@ class AppbarWidget extends StatelessWidget {
   }
 
   Widget appbarMenuText(String text) {
-    return TextButton(
-      child: Text(
-        text,
-        style: GoogleFonts.playfairDisplay(
-          color: const Color(0xffF1C40F),
-          fontWeight: FontWeight.w600,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: GestureDetector(
+        child: Text(
+          text,
+          style: GoogleFonts.playfairDisplay(
+              color: const Color(0xffF1C40F),
+              fontWeight: FontWeight.w600,
+              fontSize: 18),
         ),
+        onTap: () {
+          selectOption(text, highScreen);
+        },
       ),
-      onPressed: () {
-        selectOption(text, highScreen);
-      },
     );
   }
 
@@ -82,24 +82,23 @@ class AppbarWidget extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       child: OutlinedButton(
         onPressed: () async {
-          print('testando');
           if (text != null) {
-            print('chamou');
-            await openAcess(context, acesso);
+            openAcess(context, acesso);
           } else {}
         },
         style: OutlinedButton.styleFrom(
           side: const BorderSide(color: Color(0xffFFC300), width: 2),
-          overlayColor: const Color(0xffFFC300),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
-        child:
-            text != null
-                ? appbarMenuText(text)
-                : const Icon(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: text != null
+              ? appbarMenuText(text)
+              : const Icon(
                   Icons.shopping_cart_outlined,
                   color: Color(0xffFFC300),
                 ),
+        ),
       ),
     );
   }
