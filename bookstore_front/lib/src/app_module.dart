@@ -1,19 +1,20 @@
 // ignore: depend_on_referenced_packages
 import 'package:bookstore_front/src/module/bookstore/presenter/bookstore_bloc.dart';
 import 'package:bookstore_front/src/module/bookstore/presenter/bookstore_screen.dart';
+import 'package:bookstore_front/src/module/components/dialog/acesso/presenter/dialog_acesso_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppModule extends Module {
   @override
-  void binds(Injector i) {
-    final dio = Dio();
-    i.add<Dio>(() => dio);
-    i.add<BookstoreBloc>(BookstoreBloc.new);
-  }
+  List<Bind> get binds => [
+        Bind<Dio>((i) => Dio()),
+        Bind<BookstoreBloc>((i) => BookstoreBloc()),
+        Bind<DialogAcessoBloc>((i) => DialogAcessoBloc()),
+      ];
 
   @override
-  void routes(RouteManager r) {
-    r.child('/', child: (_) => const BookstoreScreen());
-  }
+  List<ModularRoute> get routes => [
+        ChildRoute('/', child: (context, args) => const BookstoreScreen()),
+      ];
 }

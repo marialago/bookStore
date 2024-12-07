@@ -8,10 +8,10 @@ class BuscarLivroWidget extends StatelessWidget {
   final FocusNode focusNode;
   final TextEditingController controller;
   const BuscarLivroWidget({
-    super.key,
+    Key? key,
     required this.focusNode,
     required this.controller,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +47,19 @@ class BuscarLivroWidget extends StatelessWidget {
                 contentPadding: const EdgeInsets.symmetric(vertical: 16.0),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff34495E),
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(
+                      color: Color(0xff34495E), width: 2.0), // Borda habilitada
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(
+                      color: Color(0xff34495E), width: 2.0), // Borda focada
                 ),
               ),
             ),

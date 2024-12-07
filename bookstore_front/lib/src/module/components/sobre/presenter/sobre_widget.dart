@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SobreWidget extends StatelessWidget {
-  const SobreWidget({super.key});
+  const SobreWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class SobreWidget extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 75.0),
                     child: Text(
                       TextUtils.SOBRE_TEXT,
-                      style: GoogleFonts.playfair(
+                      style: GoogleFonts.abel(
                         color: const Color(0xff2C3E50),
                         fontWeight: FontWeight.w400,
                         fontSize: 24,
@@ -49,7 +49,7 @@ class SobreWidget extends StatelessWidget {
               child: Center(
                 child: Text(
                   TextUtils.SOBRE_TEXT_END,
-                  style: GoogleFonts.playfair(
+                  style: GoogleFonts.abel(
                     color: const Color(0xff2C3E50),
                     fontWeight: FontWeight.w400,
                     fontSize: 24,
