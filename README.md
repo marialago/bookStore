@@ -41,3 +41,6 @@ Os protótipos das telas foram desenvolvidos no **Figma**, trazendo uma interfac
 ---
 
 ![Apresentação Canva](https://www.canva.com/design/DAGYjAi01d8/mrE-9Q7o8_MuDk0xUQ4gfQ/edit)  
+
+---
+Link para a API (Swagger): https://web1bookstore-2341d7ab5f45.herokuapp.com/api/docs  
