@@ -98,6 +98,13 @@ def atualizar_livro(request, livro_id: int, data: LivroCreateSchema, administrad
     livro = administradorView.atualizar_livro(livro_id, data, imagem, administrador)
     return livro
 
+# Atualizar um livro existente
+@administrador_router.put("/atualizar_imagem_livro/{livro_id}/", response=LivroSchema)
+def atualizar_imagem_livro(request, livro_id: int, imagem: UploadedFile = File(...)):
+    # Lógica para atualizar a imagem
+    livro = administradorView.atualizar_imagem_livro(livro_id, imagem)
+    return livro
+
 # Excluir um livro
 @administrador_router.delete("/deletar_livro/{livro_id}/{administrador_id}/")
 def excluir_livro(request, livro_id: int, administrador_id, data: AdministradorLoginSchema):

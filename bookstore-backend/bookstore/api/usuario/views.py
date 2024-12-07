@@ -41,6 +41,13 @@ class AdministradorView(View):
             livro.save()
             return livro
 
+    def atualizar_imagem_livro(self, livro_id, imagem):
+        livro = get_object_or_404(Livro, id=livro_id)
+        if imagem:
+            path = default_storage.save(f"livros/{imagem.name}", imagem)
+            livro.imagem = path
+        livro.save()
+        return livro
 
     # Excluir um livro
     def excluir_livro(self, livro_id, administrador_id, administrador):
