@@ -7,18 +7,19 @@ import 'package:google_fonts/google_fonts.dart';
 class AppbarWidget extends StatelessWidget {
   final void Function(String, double) selectOption;
   final double highScreen;
-  final void Function(BuildContext, Widget) openAcess;
+  final void Function(BuildContext, Widget) openOption;
   final Widget acesso;
   final Client client;
-  //final Widget compra;
+  final Widget compra;
 
   const AppbarWidget({
     Key? key,
     required this.selectOption,
     required this.highScreen,
-    required this.openAcess,
+    required this.openOption,
     required this.acesso,
     required this.client,
+    required this.compra,
   }) : super(key: key);
 
   @override
@@ -94,8 +95,10 @@ class AppbarWidget extends StatelessWidget {
       child: OutlinedButton(
         onPressed: () async {
           if (text != null) {
-            openAcess(context, acesso);
-          } else {}
+            openOption(context, acesso);
+          } else {
+            openOption(context, compra);
+          }
         },
         style: OutlinedButton.styleFrom(
           side: const BorderSide(color: Color(0xffFFC300), width: 2),

@@ -9,12 +9,14 @@ import 'package:bookstore_front/src/utils/text_utils.dart';
 class BuscarLivroWidget extends StatelessWidget {
   final TextEditingController controller;
   final Function getLivro;
+  final Function adicionar;
   final List<Livro>? livros;
   const BuscarLivroWidget({
     Key? key,
     required this.controller,
     required this.getLivro,
     this.livros,
+    required this.adicionar,
   }) : super(key: key);
 
   @override
@@ -77,18 +79,23 @@ class BuscarLivroWidget extends StatelessWidget {
             ],
           ),
         ),
-        livroList(livros ?? []),
+        livroList(livros ?? [], adicionar),
       ],
     );
   }
 
-  Widget livroList(List<Livro> livros) {
+  Widget livroList(List<Livro> livros, Function adicionar) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Wrap(
         spacing: 8.0,
         runSpacing: 8.0,
-        children: livros.map((livro) => LivroUnit(livro: livro)).toList(),
+        children: livros
+            .map((livro) => LivroUnit(
+                  livro: livro,
+                  adicionar: adicionar,
+                ))
+            .toList(),
       ),
     );
   }
