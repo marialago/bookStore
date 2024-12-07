@@ -6,6 +6,7 @@ import 'package:bookstore_front/src/module/components/buscar_livro/presenter/bus
 import 'package:bookstore_front/src/module/components/categorias/presenter/categorias_widget.dart';
 import 'package:bookstore_front/src/module/components/dialog/acesso/presenter/dialog_acesso.dart';
 import 'package:bookstore_front/src/module/components/dialog/acesso/presenter/dialog_acesso_bloc.dart';
+import 'package:bookstore_front/src/module/components/dialog/carrinho/dialog_carrinho.dart';
 import 'package:bookstore_front/src/module/components/sobre/presenter/sobre_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -42,8 +43,12 @@ class _BookstoreScreenState extends State<BookstoreScreen> {
                 return AppbarWidget(
                   selectOption: controller.scrollToIndex,
                   highScreen: screenHeight,
-                  openAcess: controller.openAcess,
+                  openOption: controller.openOption,
                   client: controller.clientModular,
+                  compra: DialogCarrinhoScreen(
+                    livrosCarrinho: controller.carrinho,
+                    valorTotal: controller.valorTotalCompra,
+                  ),
                   acesso: DialogAcessoScreen(
                     logado: controller.logadoCheck,
                     confirmarSenhaController:
@@ -73,6 +78,7 @@ class _BookstoreScreenState extends State<BookstoreScreen> {
                           livros: snapshot.data,
                           controller: buscaBloc.textController,
                           getLivro: buscaBloc.getLivros,
+                          adicionar: controller.adicionarCarrinho,
                         );
                       });
                 }

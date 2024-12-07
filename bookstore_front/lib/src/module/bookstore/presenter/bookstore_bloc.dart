@@ -1,3 +1,4 @@
+import 'package:bookstore_front/src/module/components/buscar_livro/domain/livro.dart';
 import 'package:bookstore_front/src/module/components/dialog/acesso/domain/cliente.dart';
 import 'package:bookstore_front/src/module/components/dialog/acesso/presenter/dialog_acesso_bloc.dart';
 import 'package:dio/dio.dart';
@@ -11,6 +12,7 @@ class BookstoreBloc {
   final FocusNode focusNode = FocusNode();
   final ScrollController scrollController = ScrollController();
   Client clientModular = Modular.get<Client>();
+  List<Livro> carrinho = Modular.get<List<Livro>>();
 
   BehaviorSubject<bool> logado = BehaviorSubject<bool>.seeded(false);
   Stream<bool>? get logadoOut => logado.stream;
@@ -33,11 +35,42 @@ class BookstoreBloc {
     );
   }
 
+  String valorTotalCompra() {
+    double conta = 0;
+    for (Livro _livro in carrinho) {
+      conta = conta + (_livro.preco ?? 0.0);
+    }
+    print('conta: $conta');
+    return conta.toString();
+  }
+
+  void adicionarCarrinho(Livro livro, context) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Item Adicionado ao Carrinho"),
+          content:
+              const Text("O item foi adicionado com sucesso ao seu carrinho."),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Fecha o AlertDialog
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+    carrinho.add(livro);
+  }
+
   void logadoCheck() async {
     if (clientModular.email != null) logado.sink.add(true);
   }
 
-  void openAcess(BuildContext context, Widget widget) async {
+  void openOption(BuildContext context, Widget widget) async {
     Navigator.of(context).push(
       PageRouteBuilder(
         opaque: false,
