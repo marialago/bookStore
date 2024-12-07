@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class CategoriaUnit extends StatelessWidget {
   final String img;
   final String text;
-  const CategoriaUnit({super.key, required this.img, required this.text});
+  const CategoriaUnit({Key? key, required this.img, required this.text})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

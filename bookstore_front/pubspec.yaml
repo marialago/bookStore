@@ -6,21 +6,20 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.7.0-188.0.dev
+  sdk: ^2.16.1
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  cupertino_icons: ^1.0.8
-  flutter_modular: ^6.3.4
-  rxdart: ^0.28.0
-  bloc: ^8.1.4
+  cupertino_icons: 
+  flutter_modular: ^5.0.2
+  rxdart: 
+  bloc:
   equatable: 
-  dio_cache_interceptor: ^3.5.0                    
-  dio_cache_interceptor_db_store: ^5.1.1  
-  google_fonts:
+  dio:
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:

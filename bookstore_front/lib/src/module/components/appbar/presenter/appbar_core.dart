@@ -1,9 +1,22 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bookstore_front/src/utils/img_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppbarWidget extends StatelessWidget {
-  const AppbarWidget({super.key});
+  final void Function(String, double) selectOption;
+  final double highScreen;
+  final void Function(BuildContext, Widget) openAcess;
+  final Widget acesso;
+  //final Widget compra;
+
+  const AppbarWidget({
+    Key? key,
+    required this.selectOption,
+    required this.highScreen,
+    required this.openAcess,
+    required this.acesso,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,47 +44,61 @@ class AppbarWidget extends StatelessWidget {
           ),
           Row(
             children: [
-              appbarMenuText('Início'),
               appbarMenuText('Categorias'),
               appbarMenuText('Sobre Nós'),
             ],
           ),
-          Row(children: [appbarMenuItens(text: "entrar"), appbarMenuItens()]),
+          Row(
+            children: [
+              appbarMenuItens(context, text: "entrar"),
+              appbarMenuItens(context),
+            ],
+          ),
         ],
       ),
     );
   }
 
   Widget appbarMenuText(String text) {
-    return TextButton(
-      child: Text(
-        text,
-        style: GoogleFonts.playfairDisplay(
-          color: const Color(0xffF1C40F),
-          fontWeight: FontWeight.w600,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: GestureDetector(
+        child: Text(
+          text,
+          style: GoogleFonts.playfairDisplay(
+              color: const Color(0xffF1C40F),
+              fontWeight: FontWeight.w600,
+              fontSize: 18),
         ),
+        onTap: () {
+          selectOption(text, highScreen);
+        },
       ),
-      onPressed: () {},
     );
   }
 
-  Widget appbarMenuItens({String? text}) {
+  Widget appbarMenuItens(context, {String? text}) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: OutlinedButton(
-        onPressed: () {},
+        onPressed: () async {
+          if (text != null) {
+            openAcess(context, acesso);
+          } else {}
+        },
         style: OutlinedButton.styleFrom(
           side: const BorderSide(color: Color(0xffFFC300), width: 2),
-          overlayColor: const Color(0xffFFC300),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
-        child:
-            text != null
-                ? appbarMenuText(text)
-                : const Icon(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: text != null
+              ? appbarMenuText(text)
+              : const Icon(
                   Icons.shopping_cart_outlined,
                   color: Color(0xffFFC300),
                 ),
+        ),
       ),
     );
   }
